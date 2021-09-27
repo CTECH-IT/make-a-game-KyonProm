@@ -4,27 +4,42 @@ let ctx = canvas.getContext("2d");
 let rightPressed = false;
 let leftPressed = false;
 
-let playerHeight = 30;
-let playerWidth = 30;
-let playerX = (30) /2;
+let playerHeight = 20;
+let playerWidth = 20;
+let playerX = (500);
+let playerY = (500);
 
 function draw() {
+    // clear the canvas
+    ctx.clearRect(0,0, canvas.width, canvas.height);
     
     function drawPlayer() {
         ctx.beginPath();
-        ctx.arc(350, 350, playerWidth, 0, Math.PI*2);
+        ctx.arc(playerX, playerY, 20, 0, Math.PI*2);
         ctx.fillStyle = "blue"
         ctx.fill();
         ctx.closePath();
     }
 
-    // player movement 
+    // draw player
+    drawPlayer();
+
+    // player movement x value
     if(rightPressed) {
-        playerX +- 7;
+        playerX += 7;
     }
     else if(leftPressed) {
         playerX -= 7;
     }
+
+    // player movement y value
+    if(upPressed) {
+        playerY += 7;
+    }
+    else if(downPressed) {
+        playerY -= 7;
+    }
+
     drawPlayer();
 
 }
@@ -46,8 +61,27 @@ function keyUpHandler(e){
       leftPressed = false;
     }
 }
+function keyRightHandler(e) {
+    if(e.key == "Up" || e.key == "ArrowUp") {
+        upPressed = true;
+    }
+    else if(e.key == "Down" || e.key == "ArrowDown") {
+        downPressed = true;
+    }
+}
+
+function keyLeftHandler(e){
+    if(e.key == "Up" || e.key == "ArrowUp") {
+        upPressed = false;
+    }
+    else if(e.key == "Down" || e.key == "ArrowUp") {
+        downPressed = false;
+    }
+}
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keyright", keyRightHandler, false);
+document.addEventListener("keyleft", keyLeftHandler, false);
 
 setInterval(draw, 10);
