@@ -3,11 +3,17 @@ let ctx = canvas.getContext("2d");
 
 let rightPressed = false;
 let leftPressed = false;
+let downPressed = false;
+let upPressed = false;
 
 let playerHeight = 20;
 let playerWidth = 20;
-let playerX = (500);
-let playerY = (500);
+let playerX = (250);
+let playerY = (250);
+let playerRadius = 20;
+
+let dx = 10;
+let dy = -10;
 
 function draw() {
     // clear the canvas
@@ -15,7 +21,7 @@ function draw() {
     
     function drawPlayer() {
         ctx.beginPath();
-        ctx.arc(playerX, playerY, 20, 0, Math.PI*2);
+        ctx.arc(playerX, playerY, playerRadius, 0, Math.PI*2);
         ctx.fillStyle = "blue"
         ctx.fill();
         ctx.closePath();
@@ -32,56 +38,35 @@ function draw() {
         playerX -= 7;
     }
 
-    // player movement y value
-    if(upPressed) {
-        playerY += 7;
-    }
-    else if(downPressed) {
-        playerY -= 7;
-    }
-
     drawPlayer();
-
+ if (playerX < 0 ?? playerX )
 }
 
-function keyDownHandler(e) {
-    if(e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = true;
-    }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
-        leftPressed = true;
-    }
-}
 
-function keyUpHandler(e){
-    if(e.key == "Right" || e.key == "ArrowRight") {
-        rightPressed = false;
+ document.addEventListener('keydown', function(event) {
+    //left
+    if(event.keyCode == 37) {
+        playerX -= 10;
     }
-    else if(e.key == "Left" || e.key == "ArrowLeft") {
-      leftPressed = false;
+    //top
+    else if(event.keyCode == 38) {
+        playerY -= 10;
     }
-}
-function keyRightHandler(e) {
-    if(e.key == "Up" || e.key == "ArrowUp") {
-        upPressed = true;
+    //right
+    else if(event.keyCode == 39) {
+        playerX += 10;
     }
-    else if(e.key == "Down" || e.key == "ArrowDown") {
-        downPressed = true;
+    //bottom
+    else if(event.keyCode == 40) {
+        playerY += 10;
     }
-}
+    });
+    
 
-function keyLeftHandler(e){
-    if(e.key == "Up" || e.key == "ArrowUp") {
-        upPressed = false;
-    }
-    else if(e.key == "Down" || e.key == "ArrowUp") {
-        downPressed = false;
-    }
-}
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("keyright", keyRightHandler, false);
-document.addEventListener("keyleft", keyLeftHandler, false);
+
+
+
+
 
 setInterval(draw, 10);
