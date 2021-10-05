@@ -12,23 +12,12 @@ let playerX = (250);
 let playerY = (450);
 let playerRadius = 20;
 
+let obstacleX = (200);
+let obstacleY = (5);
+let obstacleWidth = (270);
+let obstacleHeight = (20);
+
 let score = 0;
-
-let obstacleRowCount = 1;
-let obstacleColumnCount = 5;
-let obstacleWidth = 50;
-let obstacleHeight = 20
-let obstaclePadding = 10;
-let obstacleOffsetTop = 5;
-let obstacleOffsetLeft = 5;
-
-let obstacle = [];
-for (let c=0; c < obstacleColumnCount; c++) {
-    obstacle[c] = [];
-    for(let r=0; r < obstacleRowCount; r++) {
-        obstacle[c][r] = {x: 0, y: 0};
-    }
-}
 
 function draw() {
     // clear the canvas
@@ -37,7 +26,7 @@ function draw() {
     function drawPlayer() {
         ctx.beginPath();
         ctx.arc(playerX, playerY, playerRadius, 0, Math.PI*2);
-        ctx.fillStyle = "pink"
+        ctx.fillStyle = "red"
         ctx.fill();
         ctx.closePath();
     }
@@ -45,26 +34,18 @@ function draw() {
     // draw player
     drawPlayer();
 
-    //draw obstacle
-    drawObstacle();
 
-   function drawObstacle (){
-      for(let c=0; c < obstacleColumnCount; c++) {
-          for(let r=0; r < obstacleRowCount; r++){
-              let obstacleX = (c*(obstacleWidth+obstaclePadding))+obstacleOffsetLeft;
-              let obstacleY = (r*(obstacleHeight+obstaclePadding))+obstacleOffsetTop;
-              obstacle[c][r].x = obstacleX;
-              obstacle[c][r].y = obstacleY;
-              ctx.beginPath();
-              ctx.rect(obstacleX, obstacleY, obstacleWidth, obstacleHeight);
-              ctx.fillStyle = "red";
-              ctx.fill();
-              ctx.closePath();
-          }
-      }
+   function drawObstacle(){
+       ctx.beginPath
+       ctx.rect(obstacleX, obstacleY, obstacleWidth, obstacleHeight);
+       ctx.fillStyle = "red"
+       ctx.fill();
+       ctx.closePath();
    }
-    
 
+ //draw obstacle
+ drawObstacle();
+    
     function drawScore() {
         ctx.font = "20px Times New Roman";
         ctx.fillStyle= "white"
@@ -75,6 +56,7 @@ function draw() {
     drawScore(); 
 
 
+//player teleport and scoring
  if(playerX >= canvas.width){
     playerX = 250;
     playerY = 450;
@@ -89,18 +71,22 @@ function draw() {
  if(playerY > canvas.height){
    playerY = 450;
    playerX = 250;
- }
+        
+        
+    }
+
     else if(playerY < -15){
      playerY = 450;
      playerX = 250;
      score ++;
-     if(score == 10) {
-        alert("You Win");
-        document.location.reload();
-        clearInterval(interval); //ends game
-    }
-    }
+        if(score == 10) {
+            alert("You Win");
+            document.location.reload();
+            clearInterval(interval); //ends game
+        }
+    }    
 }
+
 //player movement
 document.addEventListener('keydown', function(event) {
     //left
